@@ -89,3 +89,13 @@ def code_exrc_90():
     print(talk_90('hello', vocabulary))
     print("...")
 ##############################################################
+
+def code_exrc_88():
+    input = {'a': 5, 'b': 3, 'c': 10}
+    results = {}
+    for key, value in input.items():
+        if value > 4:
+            results[key] = value
+    return results
+
+##############################################################

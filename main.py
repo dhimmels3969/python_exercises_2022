@@ -18,9 +18,11 @@ if __name__ == '__main__':
     customer_dict = qz.code_exrc_54()
     print(customer_dict)
 
-    # print("sum: " + str(qz.code_exrc_87()))
-    print("sum: %s" % (qz.code_exrc_87()))
+    qz.code_exrc_88()
     print(".......................................")
+    # print("sum: " + str(qz.code_exrc_87()))
+    # print("sum: %s" % (qz.code_exrc_87()))
+    # print(".......................................")
     # qz.code_exrc_90()
     # print(".......................................")
     # qz.code_exrc_79()
