@@ -1,5 +1,11 @@
-
-
+import time
+import datetime
+from datetime import date
+import os
+##############################################################
+from difflib import SequenceMatcher
+from difflib import get_close_matches
+##############################################################
 
 customer = (
     ('id','98698761'),
@@ -17,7 +23,7 @@ def code_exrc_54():
     return customer_dict
         # print(item[0])
         # print(item[1])
-
+#######################################################################
 
 def code_exrc_55():
     passwords = ['ccavfb', 'baaded', 'bbaa', 'aaeed', 'vbb', 'aadeba', 'aba', 'dee', 'dade', 'abc', 'aae', 'dded',
@@ -97,5 +103,110 @@ def code_exrc_88():
         if value > 4:
             results[key] = value
     return results
+
+##############################################################
+
+def talk_92(query, vocabulary):
+    if query in vocabulary:
+        return vocabulary[query]
+    # elif query == "what time is it":
+    #     current_time = time.strftime('%H:%M')
+    #     return current_time
+    else:
+        return "I don't understand that"
+
+
+def code_exrc_92():
+    vocabulary = {
+        "hello": "Hi there!",
+        "what's your name": "My name is Roboto!",
+        "what is your name": "My name is Roboto!",
+        "bye": "Goodbye!",
+        "what time is it": time.strftime('%H:%M')
+    }
+    results = talk_92("what time is it", vocabulary)
+    return results
+
+
+
+##############################################################
+
+def talk_93(query, vocabulary):
+    best_match = get_close_matches(query, vocabulary.keys(), n=3, cutoff=0.25)[0]
+    if len(best_match) > 0:
+        if best_match in vocabulary:
+            return vocabulary[best_match]
+        else:
+            return "I don't understand that"
+    else:
+        return "I don't understand that"
+
+
+def code_exrc_93():
+    vocabulary = {
+        "hello": "Hi there!",
+        "what's your name": "My name is Roboto!",
+        "what is your name": "My name is Roboto!",
+        "bye": "Goodbye!",
+        "what time is it": time.strftime('%H:%M')
+    }
+    results = talk_93("tell me the time", vocabulary)
+    return results
+
+
+
+##############################################################
+
+def foo_94(mydate):
+    # mydate.split("-")[1].rjust(2, "0")
+    # holddate = mydate.split("-")
+    # holddate[0] = holddate[0].rjust(4, "0")
+    # holddate[1] = holddate[1].rjust(2, "0")
+    # holddate[2] = holddate[2].rjust(2, "0")
+    rslvddate = datetime.datetime.strptime(mydate, "%Y-%m-%d").strftime("%A")
+    mydate = mydate.split("-")
+    mydate[0] = mydate[0].rjust(4, "0")
+    mydate[1] = mydate[1].rjust(2, "0")
+    mydate[2] = mydate[2].rjust(2, "0")
+    mydate = "-".join(mydate)
+    results = date.fromisoformat(mydate).strftime('%A')
+    return results
+
+##############################################################
+
+def foo_95():
+    cwd = os.getcwd()
+    for i in range(1,10):
+        filename = os.path.join(cwd, "file" + str(i) + ".txt")
+        if not os.path.exists(filename):
+            f = open(os.path.join(cwd, "file" + str(i) + ".txt"), 'w').close()
+
+    # cwd = os.getcwd()
+    # for i in range(1,10):
+    #     f = open(os.path.join(cwd, "day" + str(i) + ".txt"), 'x')
+    #     f.close()
+    return ""
+
+##############################################################
+
+def foo_70():
+    # Function gets any Python class object (e.g. str, int, float, etc) and returns the object name as string (i.e. 'str', 'int', 'float')
+    def object_to_string(obj):
+        items = str(obj).split(" ")
+        obj_type = items[-1].replace(">", "").replace("'", "")
+        return obj_type
+
+    vocabulary = {
+        "hello": "Hi there!",
+        "what's your name": "My name is Roboto!",
+        "what is your name": "My name is Roboto!",
+        "bye": "Goodbye!",
+        "what time is it": time.strftime('%H:%M')
+    }
+
+    a = object_to_string('<built-in function max>')
+    print(a)
+    a = object_to_string(type(vocabulary))
+    print(a)
 
 ##############################################################
