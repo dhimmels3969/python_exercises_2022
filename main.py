@@ -18,9 +18,20 @@ if __name__ == '__main__':
     customer_dict = qz.code_exrc_54()
     print(customer_dict)
 
-
-    print(qz.foo_70())
+    myData = qz.foo_116()
     print(".......................................")
+
+    # myData = qz.foo_100()
+    # print(".......................................")
+    # # myData = qz.foo_99()
+    # print(".......................................")
+
+    # myData = qz.foo_97c()
+    # print(myData)
+    # print(".......................................")
+
+    # print(qz.foo_70())
+    # print(".......................................")
     # print(qz.foo_95())
     # print(".......................................")
     # print(qz.foo_94('2001-9-11'))

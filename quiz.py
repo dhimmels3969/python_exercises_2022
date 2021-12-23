@@ -2,6 +2,10 @@ import time
 import datetime
 from datetime import date
 import os
+import fileinput
+import glob
+import re
+from collections import Counter
 ##############################################################
 from difflib import SequenceMatcher
 from difflib import get_close_matches
@@ -210,3 +214,105 @@ def foo_70():
     print(a)
 
 ##############################################################
+
+def foo_97():
+    with fileinput.input(files=('file2.txt', 'file3.txt')) as f:
+        lines = []
+        number_list = []
+        for line in f:
+            lines.append(line)
+    # read through the list and pick out numerical items...
+    for line in lines:
+        # numberz= re.findall('\d*\.?\d+',line)
+        numberz= re.findall("[0-9]+\.*[0-9]*",line)
+        # "[0-9]+\.*[0-9]*"
+        if len(numberz) > 0:
+            for values in numberz:
+                try:
+                    converted_value = float(values)
+                    number_list.append(converted_value)
+                except:
+                    pass
+            #     if values.isdecimal() or values.isnumeric():
+            #         number_list.append(float(values))
+    print(number_list)
+    avg = sum(values for values in number_list) / len(number_list)
+    return avg
+##############################################################
+
+def foo_97c():
+    text_files = glob.glob("*.txt")
+    lists = []
+    for text_file in text_files:
+        with open(text_file) as file:
+            lists.append(file.readlines())
+
+    all_lines = sum(lists, [])
+
+    matches = [re.compile("[0-9]+\.*[0-9]*").search(line) for line in all_lines]
+
+    numbers = [float(match.group(0)) for match in matches if match]
+    # print(sum(numbers) / len(numbers))
+    avg = sum(numbers) / len(numbers)
+    return avg
+
+    # lines = []
+    # number_list = []
+    # with fileinput.input(files=('file2.txt', 'file3.txt')) as f:
+    #     lines.append(f.readlines())
+    # all_lines = sum(lines, [])
+    #     # for line in f:
+    #     #     lines.append(line)
+    # # read through the list and pick out numerical items...
+    # for line in lines:
+    #     # numberz= re.findall('\d*\.?\d+',line)
+    #     numberz= re.findall("[0-9]+\.*[0-9]*",line)
+    #     # "[0-9]+\.*[0-9]*"
+    #     if len(numberz) > 0:
+    #         for values in numberz:
+    #             try:
+    #                 converted_value = float(values)
+    #                 number_list.append(converted_value)
+    #             except:
+    #                 pass
+    #         #     if values.isdecimal() or values.isnumeric():
+    #         #         number_list.append(float(values))
+    # print(number_list)
+
+##############################################################
+
+def foo_99():
+    cwd = os.getcwd()
+    for i in range(1,51):
+        directory = str(i)
+        newpath = os.path.join(cwd, directory)
+        if not os.path.exists(newpath):
+            os.mkdir(newpath)
+    return ""
+##############################################################
+
+def foo_100():
+    cwd = os.getcwd()
+    day_folders = ['mon', 'tue', 'wed', 'thu', 'fri']
+    for i in range(1, 51):
+        directory = str(i)
+        newpath = os.path.join(cwd, directory)
+        if not os.path.exists(newpath):
+            os.mkdir(newpath)
+            os.chdir(newpath)
+            for folder in day_folders:
+                subfolder = os.path.join(newpath, folder)
+                if not os.path.exists(subfolder):
+                    os.mkdir(subfolder)
+    return ""
+##############################################################
+
+
+def foo_116():
+    mystring = "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient python, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus."
+    mystring_len = len(mystring)
+    occurences = Counter(mystring)
+    length_without_dots = mystring_len - occurences['.']
+    return length_without_dots
+##############################################################
+
