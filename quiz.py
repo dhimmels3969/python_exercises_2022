@@ -5,6 +5,8 @@ import os
 import fileinput
 import glob
 import re
+import json
+import ast
 from collections import Counter
 ##############################################################
 from difflib import SequenceMatcher
@@ -216,7 +218,7 @@ def foo_70():
 ##############################################################
 
 def foo_97():
-    with fileinput.input(files=('file2.txt', 'file3.txt')) as f:
+    with fileinput.input(files=('file2_001.txt', 'file3_001.txt')) as f:
         lines = []
         number_list = []
         for line in f:
@@ -258,7 +260,7 @@ def foo_97c():
 
     # lines = []
     # number_list = []
-    # with fileinput.input(files=('file2.txt', 'file3.txt')) as f:
+    # with fileinput.input(files=('file2_001.txt', 'file3_001.txt')) as f:
     #     lines.append(f.readlines())
     # all_lines = sum(lines, [])
     #     # for line in f:
@@ -308,6 +310,35 @@ def foo_100():
 ##############################################################
 
 
+def foo_100_v2():
+    cwd = os.getcwd()
+    day_folders = ['mon', 'tue', 'wed', 'thu', 'fri']
+    for i in range(1, 51):
+        directory = str(i)
+        newpath = os.path.join(cwd, directory)
+        os.makedirs(newpath)
+        for folder in day_folders:
+            subfolder = os.path.join(newpath, folder)
+            os.mkdir(subfolder)
+    return ""
+##############################################################
+
+
+def foo_100_remove(upper_bound):
+    cwd = os.getcwd()
+    day_folders = ['mon', 'tue', 'wed', 'thu', 'fri']
+    for i in range(1, upper_bound):
+        directory = str(i)
+        newpath = os.path.join(cwd, directory)
+        if os.path.exists(newpath):
+            for folder in day_folders:
+                subfolder = os.path.join(newpath, folder)
+                os.rmdir(subfolder)
+            os.rmdir(newpath)
+    return ""
+##############################################################
+
+
 def foo_116():
     mystring = "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient python, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus."
     mystring_len = len(mystring)
@@ -316,3 +347,87 @@ def foo_116():
     return length_without_dots
 ##############################################################
 
+
+def foo_112():
+    with open("file2_112.txt", "r") as f:
+        content = f.read()
+    content2 = content.replace(". ", ".@@").replace("? ", "?@@")
+    items = re.split(r'[@@]', content2)
+    final_results = [item for item in items if item.__contains__("?") ]
+    # final_results = [item for item in items if item.find("?") != -1]
+    # final_results = [item for item in items]
+    return final_results
+##############################################################
+
+
+def foo_105():
+    with open("file3.txt", "r") as f3:
+        content = f3.read()
+    new_entry = json.loads("{" + content + "}")
+
+    with open("file2.txt", "r+") as f2:
+        data = json.load(f2)
+        myDictionary = data['metals']
+        for item in new_entry.keys():
+            print(item)
+            print(new_entry[item])
+            myDictionary[item] = new_entry[item]
+        f2.seek(0)
+        f2.truncate()
+        json.dump(data, f2)
+        # data_s = json.loads(f2)
+        # data['metals'].append(content)
+        # f2.seek(0)
+        # json.dump(data, f2)
+    # content2 = ast.literal_eval(content)
+    return ""
+##############################################################
+
+
+def foo_106():
+    new_dictionary = {}
+    with open("file2_106.txt", "r") as f2:
+        myDictionary = json.load(f2)
+    for item in myDictionary.keys():
+        new_dictionary[item] = myDictionary[item] * 2.0
+    return new_dictionary
+##############################################################
+
+
+def foo_109():
+    new_list = []
+    new_path = os.path.join(os.getcwd(), "exercs109")
+    text_files = glob.glob(new_path + "/*.txt")
+    for text_file in text_files:
+        with open(text_file) as file:
+            new_list.append(file.readlines())
+    with open(new_path + "/together.txt", "w") as f2:
+        for lines in new_list:
+            f2.writelines(lines)
+            f2.write("\n")
+    return ""
+##############################################################
+
+
+def foo_110():
+    new_path = os.path.join(os.getcwd(), "exercs110")
+    text_files = glob.glob(new_path + "/*.txt")
+    for text_file in text_files:
+        new_file_name = text_file.replace("file", "file-")
+        os.rename(text_file, new_file_name)
+    return ""
+##############################################################
+
+
+def foo_104():
+    min_file_size = 999999999
+    min_file_name = ""
+    new_path = os.path.join(os.getcwd(), "exercs109")
+    text_files = glob.glob(new_path + "/*.txt")
+    for text_file in text_files:
+        file_size = text_file.__len__()
+        if file_size < min_file_size:
+            min_file_size = file_size
+            min_file_name = text_file
+    return min_file_name
+##############################################################

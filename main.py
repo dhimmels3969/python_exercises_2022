@@ -15,12 +15,38 @@ if __name__ == '__main__':
     # exerciseDriver = pe.pythonExercises()
     # exerciseDriver.parseDigits()
     # customer_dict = {}
-    customer_dict = qz.code_exrc_54()
-    print(customer_dict)
+    # customer_dict = qz.code_exrc_54()
+    # print(customer_dict)
 
-    myData = qz.foo_116()
+    myData = qz.foo_104()
+    print(myData)
     print(".......................................")
 
+    # myData = qz.foo_110()
+    # print(".......................................")
+
+    # myData = qz.foo_109()
+    # print(".......................................")
+
+    # myData = print(qz.foo_106())
+    # print(".......................................")
+
+    # myData = qz.foo_105()
+    # print(".......................................")
+
+    # myData = qz.foo_100_remove(52)
+    # print(".......................................")
+
+    # myData = qz.foo_100_v2()
+    # print(".......................................")
+    #
+    # myData = qz.foo_112()
+    # print("results: {0}".format(myData))
+    # print(".......................................")
+
+    # myData = qz.foo_116()
+    # print(".......................................")
+    #
     # myData = qz.foo_100()
     # print(".......................................")
     # # myData = qz.foo_99()
